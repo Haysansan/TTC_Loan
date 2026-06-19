@@ -405,7 +405,7 @@ class LoanDisbursmentsController extends GetxController {
         'first_payment_date': dateFirstRepaymentCtl.text,
         'disbursed_date': dateOpenLoanCtl.text,
         // 'income_disburment': dailyIncomeCtl.text,
-        'income_disburment': dailyIncomeTypeList.map((f) => f.id).toList(),
+        'income_disburment': selectedDailyIncome.value?.id,
         'total_debt': totalDebtCtl.text,
         'loan_purpose_id': selectedLoanPurpose.value?.id,
         'fee': selectedFees.map((f) => f.id).toList(),
