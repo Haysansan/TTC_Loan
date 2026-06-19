@@ -242,27 +242,28 @@ class LoanDisbursmentsController extends GetxController {
     }
   }
 
-  Future<void> fetchFees(num productId) async {
-    try {
-      final branchId = await _getBranchId();
-      final cacheKey = 'disb_fees_${branchId}_$productId';
-      final data = await _cachedOrFetch(cacheKey, () async {
-        final res = await Get.find<ApiService>().get(
-          EndPoints.getFeeByProduct,
-          queryParameters: {
-            'branch_id': branchId,
-            'loan_product_id': productId,
-          },
-          isShowLoading: false,
-        );
-        return (getPropertyFromJson(res.data, 'data') as List? ?? [])
-            .cast<Map<String, dynamic>>();
-      });
-      feeList.assignAll(data.map((e) => FeeModel.fromJson(e)));
-    } catch (e) {
-      if (!isClosed) ExceptionHandler.handleException(e);
-    }
-  }
+  // Future<void> fetchFees(num productId) async {
+  //   try {
+  //     final branchId = await _getBranchId();
+  //     final cacheKey = 'disb_fees_${branchId}_$productId';
+  //     final data = await _cachedOrFetch(cacheKey, () async {
+  //       final res = await Get.find<ApiService>().get(
+  //         EndPoints.getFeeByProduct,
+  //         queryParameters: {
+  //           'branch_id': branchId,
+  //           'loan_product_id': productId,
+  //         },
+  //         isShowLoading: false,
+  //       );
+
+  //       return (getPropertyFromJson(res.data, 'data') as List? ?? [])
+  //           .cast<Map<String, dynamic>>();
+  //     });
+  //     feeList.assignAll(data.map((e) => FeeModel.fromJson(e)));
+  //   } catch (e) {
+  //     if (!isClosed) ExceptionHandler.handleException(e);
+  //   }
+  // }
 
   Future<void> fetchDailyIncome() async {
     try {
@@ -389,6 +390,29 @@ class LoanDisbursmentsController extends GetxController {
     maxYear: DateTime.now().year + 200,
   );
 
+  Future<void> fetchFees(num productId) async {
+    try {
+      final branchId = await _getBranchId();
+      final cacheKey = 'disb_fees_${branchId}_$productId';
+      final data = await _cachedOrFetch(cacheKey, () async {
+        final res = await Get.find<ApiService>().get(
+          EndPoints.getFeeByProduct,
+          queryParameters: {
+            'branch_id': branchId,
+            'loan_product_id': productId,
+          },
+          isShowLoading: false,
+        );
+
+        return (getPropertyFromJson(res.data, 'data') as List? ?? [])
+            .cast<Map<String, dynamic>>();
+      });
+      feeList.assignAll(data.map((e) => FeeModel.fromJson(e)));
+    } catch (e) {
+      if (!isClosed) ExceptionHandler.handleException(e);
+    }
+  }
+
   Future<void> submitBooking() async {
     try {
       final branchId = await _getBranchId();
@@ -399,19 +423,20 @@ class LoanDisbursmentsController extends GetxController {
         'user_id': userId,
         'client_id': selectedClient.value?.id,
         'loan_product_id': selectedProduct.value?.id,
-        // 'amount_loans': selectedAppliedAmount.value?.id,
         'loan_term': instCtl.text,
         'interest_rate': intCtl.text,
         'first_payment_date': dateFirstRepaymentCtl.text,
         'disbursed_date': dateOpenLoanCtl.text,
-        // 'income_disburment': dailyIncomeCtl.text,
         'income_disburment': selectedDailyIncome.value?.id,
         'total_debt': totalDebtCtl.text,
         'loan_purpose_id': selectedLoanPurpose.value?.id,
-        'fee': selectedFees.map((f) => f.id).toList(),
         'applied_amount': selectedAppliedAmount.value?.amountLoans,
-        'loan_officer_id': await _getUserId(),
+        'loan_officer_id': userId,
       });
+
+      for (final f in selectedFees) {
+        formData.fields.add(MapEntry('fee[]', f.id.toString()));
+      }
 
       await Get.find<ApiService>().post(
         EndPoints.storeDisburment,
