@@ -70,6 +70,9 @@ class PaymentListController extends GetxController {
     return await SharedPreferencesManager.getIntValue('user_id');
   }
 
+  Future<String?> _getPermission() async =>
+      await SharedPreferencesManager.get('permission');
+
   void filterByOfficer(String? name) {
     selectedOfficer.value = name;
     filteredGroups.value =
@@ -181,9 +184,14 @@ class PaymentListController extends GetxController {
       isLoading.value = true;
       final int? branchId = await getbranchId();
       final int? userId = await getUserId();
+      final String? permission = await _getPermission();
       final res = await Get.find<ApiService>().get(
         EndPoints.payment,
-        queryParameters: {'branch_id': branchId, 'user_id': userId},
+        queryParameters: {
+          'branch_id': branchId,
+          'user_id': userId,
+          'permission': permission,
+        },
         isShowLoading: false,
       );
 

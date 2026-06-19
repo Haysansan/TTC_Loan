@@ -26,7 +26,7 @@ class CustomSummaryCard extends StatelessWidget {
           ? 'Total\nDisbursed'
           : 'Total\nRepaid';
 
-String _toKhr(double usd) =>
+  String _toKhr(double usd) =>
       '៛${NumberFormat('#,##0.00').format(usd * config.exchangeRate)}';
 
   String _toUsd(double usd) => '\$${NumberFormat('#,##0.00').format(usd)}';
@@ -215,12 +215,15 @@ String _toKhr(double usd) =>
 
   Widget _buildCollectedUncollectedSection() {
     final uncollectedUsd = config.totalRepaymentUsd - config.collectedUsd;
+    final uncollectedCount = config.totalCount - config.collectedCount;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         _buildAmountRow(
           label: LocaleKeys.collected.tr,
           primary: _toKhr(config.collectedUsd),
+          secondary: '${config.collectedCount} paid',
         ),
         const SizedBox(height: 10),
         _buildDivider(vertical: false),
@@ -228,6 +231,7 @@ String _toKhr(double usd) =>
         _buildAmountRow(
           label: LocaleKeys.unCollected.tr,
           primary: _toKhr(uncollectedUsd),
+          secondary: '$uncollectedCount expected',
         ),
       ],
     );
@@ -237,6 +241,7 @@ String _toKhr(double usd) =>
     required String label,
     required String primary,
     String? secondary,
+    String? count, // ← add this
     double primaryFontSize = 18,
   }) {
     return Column(
@@ -246,19 +251,37 @@ String _toKhr(double usd) =>
           label,
           style: TextStyle(
             color: Colors.white.withOpacity(0.9),
-            fontSize: 13,
+            fontSize: 12,
             fontWeight: FontWeight.w500,
           ),
         ),
-        Text(
-          primary,
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: primaryFontSize,
-            fontWeight: FontWeight.bold,
-            height: 1.1,
+        const SizedBox(height: 4),
+        FittedBox(
+          // ← prevents overflow on long KHR amounts
+          fit: BoxFit.scaleDown,
+          alignment: Alignment.centerLeft,
+          child: Text(
+            primary,
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: primaryFontSize,
+              fontWeight: FontWeight.bold,
+              height: 1.1,
+            ),
           ),
         ),
+        if (count != null) ...[
+          const SizedBox(height: 2),
+          Text(
+            count,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+            style: TextStyle(
+              color: Colors.white.withOpacity(0.75),
+              fontSize: 11,
+            ),
+          ),
+        ],
         if (secondary != null)
           Text(
             secondary,
