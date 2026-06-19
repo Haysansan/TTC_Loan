@@ -41,12 +41,10 @@ class WrittenoffView extends GetView<WrittenoffController> {
                   color: AppColor.primary,
                   onRefresh: controller.onRefresh,
                   child: pull.SmartRefresher(
-                    header: pull.CustomHeader(
-                      height: 0,
-                      builder: (context, mode) => const SizedBox.shrink(),
-                    ),
-                    enablePullUp: !controller.pagination.isEndOfPage,
+                    header: pull.WaterDropHeader(),
+                    enablePullUp: false,
                     controller: controller.refreshCtl,
+                    onRefresh: controller.onRefresh,
                     onLoading: controller.onLoading,
                     child: ListView.builder(
                       padding: EdgeInsets.only(

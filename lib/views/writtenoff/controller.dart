@@ -196,7 +196,7 @@ class WrittenoffController extends GetxController {
               )
               .toList();
     } else {
-      onRefresh();
+      if (isRefresh) onRefresh();
     }
   }
 
