@@ -1,4 +1,3 @@
-import 'package:apploan/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:apploan/core/core.dart';
@@ -48,34 +47,31 @@ class PaymentCollectionView extends GetView<PaymentListController> {
 
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
-              child: GestureDetector(
-                onTap: () => Get.toNamed(Routes.customers),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(18),
-                    gradient: const LinearGradient(
-                      begin: Alignment.topCenter,
-                      end: Alignment.bottomCenter,
-                      colors: [
-                        Color(0xFFFF0000),
-                        Color(0xFFFF8386),
-                        Color(0xFFFF0000),
-                      ],
-                    ),
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(18),
+                  gradient: const LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xFFFF0000),
+                      Color(0xFFFF8386),
+                      Color(0xFFFF0000),
+                    ],
                   ),
-                  child: GlassStatsCard(
-                    header:
-                        '${collectedPercent.toStringAsFixed(0)}% Collected vs Plan',
-                    left: GlassStatItem(
-                      label: LocaleKeys.collected.tr,
-                      value: '៛${NumberFormat('#,##0').format(collected)}',
-                      count: '${controller.collectedClients.value} paid',
-                    ),
-                    right: GlassStatItem(
-                      label: LocaleKeys.unCollected.tr,
-                      value: '៛${NumberFormat('#,##0').format(uncollected)}',
-                      count: '$uncollectedClients expected',
-                    ),
+                ),
+                child: GlassStatsCard(
+                  header:
+                      '${collectedPercent.toStringAsFixed(0)}% Collected vs Plan',
+                  left: GlassStatItem(
+                    label: LocaleKeys.collected.tr,
+                    value: '៛${NumberFormat('#,##0').format(collected)}',
+                    count: '${controller.collectedClients.value} paid',
+                  ),
+                  right: GlassStatItem(
+                    label: LocaleKeys.unCollected.tr,
+                    value: '៛${NumberFormat('#,##0').format(uncollected)}',
+                    count: '$uncollectedClients expected',
                   ),
                 ),
               ),
@@ -193,7 +189,6 @@ class _SearchSection extends StatelessWidget {
 
 class _FilterSection extends StatelessWidget {
   const _FilterSection();
-
   @override
   Widget build(BuildContext context) {
     final c = Get.find<PaymentListController>();

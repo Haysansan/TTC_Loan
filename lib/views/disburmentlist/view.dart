@@ -16,7 +16,12 @@ class DisburmentListView extends GetView<DisburmentListController> {
     return Scaffold(
       appBar: CustomAppBar(
         title: LocaleKeys.loanDisbursmentsList.tr,
-        onBack: () => Get.find<StartController>().changeMenu(0),
+        onBack: () {
+          Get.find<StartController>().changeMenu(0);
+          if (Get.currentRoute == Routes.loanDisbursmentsList) {
+            Get.offAllNamed(Routes.start);
+          }
+        },
         actions:
             isCO
                 ? [

@@ -121,6 +121,7 @@ class PaymentListController extends GetxController {
       collectedSumRaw.value = sum;
       totalRepaymentRaw.value = sum;
       repayment.value = await DatabaseHelper.instance.queryAllRowsCollected();
+      collectedClients.value = repayment.value.length;
       isDone = true;
       DialogManager.hideLoading();
     } catch (e) {
