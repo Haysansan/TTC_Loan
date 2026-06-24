@@ -84,6 +84,46 @@ class PaymentListController extends GetxController {
               .where((m) => m.loan_officer == selectedOfficer.value)
               .toList();
 
+  /// All local rows for the same loan (regardless of sync state) are
+  /// consolidated into one display row per loan, so a loan paid in several
+  /// steps (e.g. 5000 then 3000, possibly transferred in between) shows as
+  /// a single combined total instead of separate partial rows.
+  List<PaymentModel> get groupedRepayment {
+    final Map<String, PaymentModel> grouped = {};
+    for (final e in repayment) {
+      final existing = grouped[e.loan_id];
+      if (existing == null) {
+        grouped[e.loan_id] = e;
+        continue;
+      }
+      final mergedAmount =
+          (double.tryParse(existing.total_repayment) ?? 0) +
+          (double.tryParse(e.total_repayment) ?? 0);
+      final stillPending = existing.synced != '1' || e.synced != '1';
+      grouped[e.loan_id] = PaymentModel(
+        id: existing.id,
+        client: existing.client,
+        photo: existing.photo,
+        loan_officer: existing.loan_officer,
+        loan_officer_id: existing.loan_officer_id,
+        client_id: existing.client_id,
+        loan_id: existing.loan_id,
+        client_code: existing.client_code,
+        total_repayment: mergedAmount.toString(),
+        amount_khr: existing.amount_khr + e.amount_khr,
+        amount_usd: existing.amount_usd + e.amount_usd,
+        amount_penalty: existing.amount_penalty,
+        submitted_on: e.submitted_on,
+        payment_type: existing.payment_type,
+        status_pay: stillPending ? 'មិនទាន់ផ្ទេរ' : 'បានផ្ទេររួច',
+        syncedate: e.syncedate,
+        synced: stillPending ? '0' : '1',
+      );
+    }
+
+    return grouped.values.toList();
+  }
+
   int customerCount = 0;
   Future<void> _countCustomers() async {
     final userId = (await getUserId())?.toString();

@@ -178,7 +178,7 @@ class TransferDataController extends GetxController {
             'submitted_on': item.submitted_on,
             'total_repayment': item.total_repayment,
             'amount_penalty': item.amount_penalty,
-            'status_pay': 'មិនទាន់អនុម័ត',
+            'status_pay': 'បានផ្ទេររួច',
             'syncedate': item.submitted_on,
             'synced': 1,
           });
@@ -323,7 +323,7 @@ class TransferDataController extends GetxController {
             'submitted_on': item.submitted_on,
             'total_repayment': item.total_repayment,
             'amount_penalty': item.amount_penalty,
-            'status_pay': 'មិនទាន់អនុម័ត',
+            'status_pay': 'បានផ្ទេររួច',
             'syncedate': item.submitted_on,
             'synced': 1,
           };

@@ -61,8 +61,10 @@ class ApproveLoansController extends GetxController {
     if (UserRepository.shared.isEco) return UserType.eco;
     final raw = await SharedPreferencesManager.get(Credential.permission.name);
     if (raw is! String) return null;
+    final normalized = raw.toLowerCase();
+    if (normalized == 'eco' || normalized == 'ceo') return UserType.eco;
     try {
-      return UserType.values.firstWhere((e) => e.name == raw);
+      return UserType.values.firstWhere((e) => e.name == normalized);
     } catch (_) {
       return null;
     }

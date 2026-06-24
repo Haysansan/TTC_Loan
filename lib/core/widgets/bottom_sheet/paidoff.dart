@@ -151,7 +151,7 @@ class PaidOffSheet extends StatelessWidget {
 
             PrimaryButton(
               text: LocaleKeys.confirmation.tr,
-              onPressed: submitBooking,
+              onPressed: UserRepository.shared.isBM ? null : submitBooking,
             ),
             UIConstants.spacing.height,
           ],

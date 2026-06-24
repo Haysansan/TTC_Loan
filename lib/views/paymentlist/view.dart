@@ -114,18 +114,19 @@ class _CoList extends StatelessWidget {
           return const Center(child: CircularProgressIndicator());
         }
 
-        if (controller.isDone && controller.repayment.isEmpty) {
+        final items = controller.groupedRepayment;
+        if (controller.isDone && items.isEmpty) {
           return NoDataWidget(text: LocaleKeys.searchNotFound.tr);
         }
 
         return ListView.builder(
           padding: UIConstants.spacing.padHorizontal,
-          itemCount: controller.repayment.length,
+          itemCount: items.length,
           itemBuilder:
               (ctx, i) => CustomTimeLinesWidget(
                 isFirst: i == 0,
-                isLast: i == controller.repayment.length - 1,
-                tracking: controller.repayment[i],
+                isLast: i == items.length - 1,
+                tracking: items[i],
                 controller: controller,
               ),
         );

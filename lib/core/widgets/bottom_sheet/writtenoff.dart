@@ -56,7 +56,7 @@ class WrittenoffSheet extends StatelessWidget {
           'status_pay': 'មិនទាន់អនុម័ត',
           'submitted_on': DateFormat('yyyy-MM-dd').format(DateTime.now()),
           'syncedate': DateFormat('yyyy-MM-dd').format(DateTime.now()),
-          'synced': '1',
+          'synced': '0',
         });
       } catch (e) {
         DialogManager.showDialog(
@@ -95,6 +95,27 @@ class WrittenoffSheet extends StatelessWidget {
           return;
         }
       }
+
+      await DatabaseHelper.instance.updateCollected({
+        'id': safeId,
+        'client': woLoan.client,
+        'loan_officer': userId,
+        'created_by_id': userId,
+        'branch': woLoan.branch,
+        'client_id': woLoan.client_id,
+        'loan_id': woLoan.loan_id,
+        'client_code': woLoan.client_code,
+        'photo': woLoan.photo,
+        'total_repayment': rawAmount,
+        'amount_penalty': totalPenaltyCtl.text,
+        'currency_id': 2,
+        'description': 'Post Repayment',
+        'gateway_id': 1,
+        'status_pay': 'បានផ្ទេររួច',
+        'submitted_on': DateFormat('yyyy-MM-dd').format(DateTime.now()),
+        'syncedate': DateFormat('yyyy-MM-dd').format(DateTime.now()),
+        'synced': 1,
+      });
 
       startCtl.onRefresh();
       DialogManager.showDialog(

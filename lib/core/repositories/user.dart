@@ -89,6 +89,7 @@ class UserRepository {
         _isBM = true;
         break;
       case 'eco':
+      case 'ceo':
         _isEco = true;
         break;
     }

@@ -432,10 +432,13 @@ class DatabaseHelper {
       whereArgs: [loanId],
     );
 
-    if (existing.isNotEmpty) {
+    final unsyncedExisting =
+        existing.where((e) => e['synced']?.toString() == '0').toList();
+
+    if (unsyncedExisting.isNotEmpty) {
       double existingAmt =
           double.tryParse(
-            existing.first['total_repayment']?.toString() ?? '0',
+            unsyncedExisting.first['total_repayment']?.toString() ?? '0',
           ) ??
           0;
       double newAmt =
@@ -447,12 +450,19 @@ class DatabaseHelper {
       return await db.update(
         'Collected',
         updateRow,
-        where: 'loan_id = ?',
-        whereArgs: [loanId],
+        where: 'loan_id = ? and synced = ?',
+        whereArgs: [loanId, '0'],
       );
     }
 
-    return await db.insert('Collected', row);
+    // Already-synced rows for this loan must stay untouched so the next
+    // transfer only ever picks up synced=0 rows; insert this as a new row
+    // instead of merging into the synced one.
+    final newRow =
+        existing.isEmpty
+            ? row
+            : (Map<String, dynamic>.from(row)..remove('id'));
+    return await db.insert('Collected', newRow);
   }
 
   Future<int?> getCollectedMaxId() async {
