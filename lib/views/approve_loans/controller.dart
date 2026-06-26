@@ -6,10 +6,10 @@ import 'package:apploan/views/views.dart';
 
 class ApproveLoansController extends GetxController {
   // ─── Role ───
-  final Rx<UserType?> userRole = Rx<UserType?>(null);
-
-  bool get isBM => userRole.value == UserType.bm;
-  bool get isCEO => userRole.value == UserType.eco;
+  bool get isBM => UserRepository.shared.permission == 'bm';
+  bool get isCEO =>
+      UserRepository.shared.permission == 'eco' ||
+      UserRepository.shared.permission == 'ceo';
 
   final RxInt selectedTab = 1.obs;
   final RxBool isLoading = false.obs;
@@ -29,6 +29,7 @@ class ApproveLoansController extends GetxController {
   final Map<int, TextEditingController> _commentControllers = {};
   TextEditingController getCommentController(int loanId) =>
       _commentControllers.putIfAbsent(loanId, () => TextEditingController());
+
   List<LoanApprovalModel> get currentList {
     switch (selectedTab.value) {
       case 1:
@@ -52,23 +53,10 @@ class ApproveLoansController extends GetxController {
   }
 
   Future<int?> _getBranchId() =>
-      SharedPreferencesManager.getIntValue('branch_id');
-  Future<int?> _getUserId() => SharedPreferencesManager.getIntValue('user_id');
+      SharedPreferencesManager.getIntValue(Credential.branch_id.name);
+  Future<int?> _getUserId() =>
+      SharedPreferencesManager.getIntValue(Credential.user_id.name);
   String _status(LoanApprovalModel l) => l.status.toLowerCase();
-
-  Future<UserType?> _resolveRole() async {
-    if (UserRepository.shared.isBM) return UserType.bm;
-    if (UserRepository.shared.isEco) return UserType.eco;
-    final raw = await SharedPreferencesManager.get(Credential.permission.name);
-    if (raw is! String) return null;
-    final normalized = raw.toLowerCase();
-    if (normalized == 'eco' || normalized == 'ceo') return UserType.eco;
-    try {
-      return UserType.values.firstWhere((e) => e.name == normalized);
-    } catch (_) {
-      return null;
-    }
-  }
 
   @override
   void onInit() {
@@ -83,11 +71,9 @@ class ApproveLoansController extends GetxController {
     super.onClose();
   }
 
-  // Role must resolve before lists load — one entry point to avoid race conditions
   Future<void> _bootstrap() async {
     try {
       isLoading.value = true;
-      userRole.value = await _resolveRole();
       await _loadAllLists();
     } catch (e) {
       if (isClosed) return;
@@ -114,7 +100,7 @@ class ApproveLoansController extends GetxController {
   //   submitted - BM Verify tab
   //   pending   - BM View All ("verified, waiting CEO") + CEO Approve tab
   //   approved  - CEO View All ("waiting disburse")    + BM Disburse tab
-  //   rejected  - BM View All + CEO View All (whoever is relevant)
+  //   rejected  - BM View All + CEO View All
   //   disbursed - BM View All + CEO View All
   Future<void> _loadAllLists() async {
     final branchId = await _getBranchId();
@@ -136,10 +122,8 @@ class ApproveLoansController extends GetxController {
 
     if (isBM) {
       verifyLoans.value = all.where((l) => _status(l) == 'submitted').toList();
-
       disbursementLoans.value =
           all.where((l) => _status(l) == 'approved').toList();
-
       final actionStatuses = {'submitted', 'approved'};
       allLoans.value =
           all.where((l) => !actionStatuses.contains(_status(l))).toList();
@@ -148,9 +132,6 @@ class ApproveLoansController extends GetxController {
       _disbursementSnapshot = List.of(disbursementLoans);
       _allSnapshot = List.of(allLoans);
 
-      // Land on whichever actionable tab actually has items, instead of
-      // always defaulting to Verify (which may be empty while Disburse
-      // has the pending items the dashboard badge counted).
       if (verifyLoans.isEmpty && disbursementLoans.isNotEmpty) {
         selectedTab.value = 2;
       } else if (verifyLoans.isNotEmpty) {
@@ -158,7 +139,6 @@ class ApproveLoansController extends GetxController {
       }
     } else if (isCEO) {
       acceptLoans.value = all.where((l) => _status(l) == 'pending').toList();
-
       final actionStatuses = {'pending'};
       allLoans.value =
           all.where((l) => !actionStatuses.contains(_status(l))).toList();
@@ -204,7 +184,7 @@ class ApproveLoansController extends GetxController {
     }
   }
 
-  // BM: verify - pending (CEO sees it in Approve tab)
+  // BM: verify → pending (CEO sees it in Approve tab)
   Future<void> verifyLoan(LoanApprovalModel loan, String comment) async {
     _confirm(
       title: 'Confirm Verification',
@@ -222,21 +202,6 @@ class ApproveLoansController extends GetxController {
     );
   }
 
-  // BM: reject from Verify tab - stays on BM side, never reaches CEO
-  // Future<void> rejectVerifyLoan(LoanApprovalModel loan) async {
-  //   _confirm(
-  //     title: 'Confirm Rejection',
-  //     body: 'Reject loan for ${loan.client}?',
-  //     btnText: 'REJECT',
-  //     onConfirm:
-  //         () => _postAction(
-  //           endpoint: EndPoints.verifyLoan,
-  //           loan: loan,
-  //           status: 'rejected',
-  //           successMsg: 'Loan rejected.',
-  //         ),
-  //   );
-  // }
   Future<void> rejectVerifyLoan(LoanApprovalModel loan, String comment) async {
     _confirm(
       title: 'Confirm Rejection',
@@ -246,7 +211,7 @@ class ApproveLoansController extends GetxController {
     );
   }
 
-  // CEO: approve - BM sees it in Disburse tab
+  // CEO: approve → BM sees it in Disburse tab
   Future<void> approveLoan(LoanApprovalModel loan, String comment) async {
     _confirm(
       title: 'Confirm Approval',
@@ -263,21 +228,7 @@ class ApproveLoansController extends GetxController {
     );
   }
 
-  // CEO: reject - stays on CEO side
-  // Future<void> rejectLoan(LoanApprovalModel loan) async {
-  //   _confirm(
-  //     title: 'Confirm Rejection',
-  //     body: 'Reject loan for ${loan.client}?',
-  //     btnText: 'REJECT',
-  //     onConfirm:
-  //         () => _postAction(
-  //           endpoint: EndPoints.approveLoan,
-  //           loan: loan,
-  //           status: 'rejected',
-  //           successMsg: 'Loan rejected.',
-  //         ),
-  //   );
-  // }
+  // CEO: reject
   Future<void> rejectLoan(LoanApprovalModel loan, String comment) async {
     _confirm(
       title: 'Confirm Rejection',
@@ -287,7 +238,7 @@ class ApproveLoansController extends GetxController {
     );
   }
 
-  // BM: disburse - done
+  // BM: disburse → done
   Future<void> disburseLoan(LoanApprovalModel loan, String comment) async {
     _confirm(
       title: 'Confirm Disbursement',
@@ -305,20 +256,6 @@ class ApproveLoansController extends GetxController {
   }
 
   // BM: reject from Disburse tab
-  // Future<void> rejectDisbursement(LoanApprovalModel loan) async {
-  //   _confirm(
-  //     title: 'Confirm Rejection',
-  //     body: 'Reject disbursement for ${loan.client}?',
-  //     btnText: 'REJECT',
-  //     onConfirm:
-  //         () => _postAction(
-  //           endpoint: EndPoints.disburseLoan,
-  //           loan: loan,
-  //           status: 'rejected',
-  //           successMsg: 'Disbursement rejected.',
-  //         ),
-  //   );
-  // }
   Future<void> rejectDisbursement(
     LoanApprovalModel loan,
     String comment,
@@ -330,44 +267,6 @@ class ApproveLoansController extends GetxController {
       onConfirm: () => _postReject(loan, comment),
     );
   }
-
-  // Future<void> _postReject(LoanApprovalModel loan) async {
-  //   try {
-  //     final comment = _commentControllers[loan.id]?.text.trim() ?? '';
-  //     final endpoint = EndPoints.rejectLoan(loan.loanId);
-  //     final userId = await _getUserId();
-  //     final userName = await _getUserName();
-
-  //     if (comment.isEmpty) {
-  //       DialogManager.showDialog(
-  //         title: 'Required',
-  //         subTitle: 'Please comment a rejection reason before rejecting.',
-  //         onPressed: () {},
-  //       );
-  //       return;
-  //     }
-
-  //     await Get.find<ApiService>().post(endpoint, {
-  //       'rejected_notes': comment,
-  //       'created_by_id': userId,
-  //       'user': userName,
-  //       'loan_id': loan.loanId,
-  //       'client_id': loan.clientId,
-  //     }, isShowLoading: true);
-
-  //     _moveToViewAll(loan: loan, newStatus: 'rejected');
-  //     _refreshDashboardBadge();
-
-  //     DialogManager.showDialog(
-  //       title: LocaleKeys.successfully.tr,
-  //       subTitle: 'Loan rejected.',
-  //       onPressed: () {},
-  //     );
-  //   } catch (e) {
-  //     if (isClosed) return;
-  //     ExceptionHandler.handleException(e);
-  //   }
-  // }
 
   void _confirm({
     required String title,
@@ -388,51 +287,6 @@ class ApproveLoansController extends GetxController {
     );
   }
 
-  // Future<void> _postAction({
-  //   required String endpoint,
-  //   required LoanApprovalModel loan,
-  //   required String status,
-  //   required String successMsg,
-  // }) async {
-  //   try {
-  //     final comment = _commentControllers[loan.id]?.text.trim() ?? '';
-  //     final userId = await _getUserId();
-  //     final userName = await _getUserName();
-  //     final today = DateTime.now().toIso8601String().split('T')[0];
-
-  //     final body = <String, dynamic>{
-  //       'loan_id': loan.loanId,
-  //       'client_id': loan.clientId,
-  //       'user_id': userId,
-  //       'verify_by_user_id': userId,
-  //       'created_by_id': userId,
-  //       'user': userName,
-  //       'verify_on_date': today,
-  //       'approved_on_date': today,
-  //       'disbursed_on_date': today,
-  //       'comment': comment,
-  //       'status': status,
-  //     };
-
-  //     if (status == 'rejected') {
-  //       body['rejected_notes'] = comment;
-  //     }
-
-  //     await Get.find<ApiService>().post(endpoint, body, isShowLoading: true);
-
-  //     _moveToViewAll(loan: loan, newStatus: status);
-  //     _refreshDashboardBadge();
-
-  //     DialogManager.showDialog(
-  //       title: LocaleKeys.successfully.tr,
-  //       subTitle: successMsg,
-  //       onPressed: () {},
-  //     );
-  //   } catch (e) {
-  //     if (isClosed) return;
-  //     ExceptionHandler.handleException(e);
-  //   }
-  // }
   Future<void> _postReject(LoanApprovalModel loan, String comment) async {
     try {
       if (comment.isEmpty) {
