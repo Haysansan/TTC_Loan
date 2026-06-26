@@ -152,8 +152,8 @@ class BorrowerSubmitButton extends StatelessWidget {
           elevation: 0,
         ),
         onPressed: onPressed,
-        child: const Text(
-          'Submit',
+        child: Text(
+          'submit'.tr,
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,

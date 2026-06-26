@@ -274,7 +274,7 @@ class LocaleKeys {
   static const totalDisbursement = 'totalDisbursement';
   static const loanDisbursmentsList = 'loanDisbursmentsList';
   static const paymentslist = 'paymentslist';
-  static const syncdata = 'Sync Data';
+  // static const syncdata = 'Sync Data';
   static const syncFailed = 'syncFailed';
   static const addCustomer = 'addCustomer';
   static const paidoff = 'paidoff';
@@ -287,7 +287,7 @@ class LocaleKeys {
   static const firstrepaymentdate = 'firstrepaymentdate';
   static const loantype = 'loantype';
   static const termofloan = 'termofloan';
-  static const transfersdata = 'transfersdata';
+  // static const transfersdata = 'transfersdata';
   static const arrearloan = 'arrearloan';
   static const chooseyourlanguage = 'chooseyourlanguage';
   static const totalPenalty = 'totalPenalty';
@@ -317,6 +317,59 @@ class LocaleKeys {
   static const totalDebt = 'totalDebt';
   static const loanPurpose = 'loanPurpose';
   static const disbursedDate = 'disbursedDate';
+  static const overdue = 'overdue';
+  static const outstanding = 'outstanding';
+  static const plan = 'plan';
+  static const paid = 'paid';
+  static const active = 'active';
+  static const expected = 'expected';
+  static const hi = 'hi';
+  static const welcomeToScLoan = 'welcomeToScLoan';
+  static const provinceCity = 'provinceCity';
+  static const districtKhan = 'districtKhan';
+  static const commune = 'commune';
+  static const village = 'village';
+  static const coBorrower = 'coBorrower';
+  static const guarantor = 'guarantor';
+  static const addCoBorrowers = 'addCoBorrowers';
+  static const addGuarantors = 'addGuarantors';
+  static const relationship = 'relationship';
+  static const firstName = 'firstName';
+  static const lastName = 'lastName';
+  static const gender = 'gender';
+  static const dob = 'dob';
+  static const gis = 'gis';
+  static const typeOfId = 'typeOfId';
+  static const idNumber = 'idNumber';
+  static const idCardPhoto = 'idCardPhoto';
+  static const collectedVsPlan = 'collectedVsPlan';
+  static const paidOffToday = 'paidOffToday';
+  static const totalActive = 'totalActive';
+  static const activeClients = 'activeClients';
+  static const pendingApproval = 'pendingApproval';
+  static const waiting = 'waiting';
+  static const waitingApprovalFromBmCeo = 'waitingApprovalFromBmCeo';
+  static const filterByCO = 'filterByCO';
+  static const thisFieldIsRequired = 'thisFieldIsRequired';
+  static const softcreativeco = 'softcreativeco';
+  static const totalToClose = 'totalToClose';
+  static const principal = 'principal';
+  static const interest = 'interest';
+  static const softCreativeCo = 'softCreativeCo';
+  static const openLoan = 'openLoan';
+  static const searchForCO = 'searchForCO';
+  static const tapToTakePhotoIdCard = 'tapToTakePhotoIdCard';
+  static const noSelectedCoborrowers = 'noSelectedCoborrowers';
+  static const noSelectedGuarantors = 'noSelectedGuarantors';
+  static const numbersId = 'numbersId';
+  static const noPendingRepayment = 'noPendingRepayment';
+  static const selectBM = 'selectBM';
+  static const transferCashToBM = 'transferCashToBM';
+  static const branchManager = 'branchManager';
+  static const note = 'note';
+  static const optionalNote = 'optionalNote';
+  static const sendToBM = 'sendToBM';
+  static const transferred = 'transferred';
 }
 
 class Locales {
@@ -342,8 +395,10 @@ class Locales {
     'unableToPickImagePleaseTryAgain':
         'Unable to pick image. Please try again.',
     'successfully': 'Success',
-    'youHavesuccessfullyCreatedTheBooking': 'អ្នកបានបង្កើតការកក់ដោយជោគជ័យ',
-    'youHavesuccessfullysyncData': 'អ្នកបានទាញទិន្នន័យពីប្រព័ន្ធដោយជោគជ័យ',
+    'youHavesuccessfullyCreatedTheBooking':
+        'You have successfully created the booking',
+    'youHavesuccessfullysyncData': 'You have successfully sync data',
+    // 'syncData': 'Sync Data',
     'forgotPassword': 'Forgot password',
     'password': 'Password',
     'cannotBeEmpty': 'Can\'t be empty',
@@ -625,6 +680,63 @@ class Locales {
     'disbursedDate': 'Disbursement Date',
     'productType': 'Product Type',
     'firstrepaymentdate': 'First Repayment Date',
+    'overdue': 'Overdue',
+    'outstanding': 'Outstanding',
+    'plan': 'Plan',
+    'paid': 'Paid',
+    'active': 'Active',
+    'expected': 'Expected',
+    'hi': 'Hi',
+    'welcomeToScLoan': 'Welcome to SC Loan.',
+    'provinceCity': 'Province/City',
+    'addCoBorrowers': 'Add Co-Borrowers',
+    'fullName': 'Full Name',
+    'collectedVsPlan': 'Collected vs Plan',
+    'paidOffToday': 'Paid Off Today',
+    'totalActive': 'Total Active',
+    'activeClients': 'Active Clients',
+    'pendingApproval': 'Pending Approval',
+    'waiting': 'Waiting',
+    'waitingApprovalFromBmCeo': 'Waiting Approval From BM / CEO',
+    'filterByCO': 'Filter by CO',
+    'receivedOfTransfer': 'Received of Transfer',
+    'totalTransfer': 'Total Transfer',
+    'amountReceived': 'Amount Received',
+    'staff': 'Staff',
+    'totalToClose': 'Total To Close',
+    'principal': 'Principal',
+    'interest': 'Interest',
+    'thisFieldIsRequired': 'This field is required',
+    'softCreativeCo': 'Soft Creative CO.,LTD',
+    'openLoan': 'Open Loan',
+    'districtKhan': 'District/Khan',
+    'commune': 'Commune',
+    'village': 'Village',
+    'coBorrower': 'Co-Borrower',
+    'guarantor': 'Guarantor',
+    'addGuarantors': 'Add Guarantors',
+    'relationship': 'Relationship',
+    'firstName': 'First Name',
+    'lastName': 'Last Name',
+    'gender': 'Gender',
+    'dob': 'Date of Birth',
+    'gis': 'GIS Code',
+    'typeOfId': 'Type of ID',
+    'idNumber': 'ID Number',
+    'idCardPhoto': 'ID Card Photo',
+    'searchForCO': 'Search for CO',
+    'tapToTakePhotoIdCard': 'Tap to take photo of ID card',
+    'noSelectedCoborrowers': 'No selected co-borrowers',
+    'noSelectedGuarantors': 'No selected guarantors',
+    'numbersId': 'ID Number',
+    'noPendingRepayment': 'No pending repayment',
+    'selectBM': 'Select BM',
+    'transferCashToBM': 'Transfer Cash to BM',
+    'branchManager': 'Branch Manager',
+    'note': 'Note',
+    'optionalNote': 'Optional note',
+    'sendToBM': 'Send to BM',
+    'transferred': 'Transferred',
   };
   static const KM_KH = {
     'unableToConnectToTheInternet': 'មិនអាចភ្ជាប់អ៊ីនធឺណិតបានទេ',
@@ -867,8 +979,8 @@ class Locales {
     'areaLoan': 'អតិថិជនយឺត',
     'customers': 'អតិថិជន',
     'writtenoff': 'អតិថិជនខ្មៅ',
-    'datasync': 'Sync Data',
-    'datatransfer': 'Cash Transfer',
+    'datasync': 'ទាញទិន្នន័យ',
+    'datatransfer': 'ការផ្ទេរប្រាក់',
     'prepaid': 'បង់ទុក',
     'clients': 'អតិថិជន',
     'creditofficers': 'អ្នកចាត់ការ',
@@ -922,5 +1034,64 @@ class Locales {
     'disbursedDate': 'កាលបរិច្ឆេទបើកប្រាក់កម្ចី',
     'productType': 'ផលិតផល',
     'firstrepaymentdate': 'ថ្ងៃបង់ប្រាក់លើកទី១',
+    'clientInformation': 'ព័ត៌មានអតិថិជន',
+    'loanDetails': 'ព័ត៌មានកម្ចី',
+    'overdue': 'ហួសកំណត់',
+    'outstanding': 'នៅសល់',
+    'plan': 'គម្រោង',
+    'paid': 'បានបង់',
+    'active': 'សកម្ម',
+    'expected': 'រំពឹងទុក',
+    'hi': 'សួស្ដី',
+    'welcomeToScLoan': 'សូមស្វាគមន៍មក SC Loan។',
+    'provinceCity': 'ខេត្ត/រាជធានី',
+    'addCoBorrowers': 'បន្ថែមមនុស្សធានា',
+    'fullName': 'ឈ្មោះពេញ',
+    'collectedVsPlan': 'ប្រមូលបានធៀបនឹងគម្រោង',
+    'paidOffToday': 'បង់ហើយថ្ងៃនេះ',
+    'totalActive': 'សរុបសកម្ម',
+    'activeClients': 'អតិថិជនសកម្ម',
+    'pendingApproval': 'រង់ចាំអនុម័ត',
+    'waiting': 'កំពុងរង់ចាំ',
+    'waitingApprovalFromBmCeo': 'រង់ចាំការអនុម័តពី BM / CEO',
+    'filterByCO': 'តម្រងតាមបុគ្គលិក',
+    'receivedOfTransfer': 'ទទួលបានពីការផ្ទេរ',
+    'totalTransfer': 'ផ្ទេរសរុប',
+    'amountReceived': 'ចំនួនទទួលបាន',
+    'staff': 'បុគ្គលិក',
+    'totalToClose': 'សរុបត្រូវបិទ',
+    'principal': 'ប្រាក់ដើម',
+    'interest': 'ការប្រាក់',
+    'thisFieldIsRequired': 'ត្រូវការបញ្ចូលព័ត៌មានទិន្នន័យ',
+    'softCreativeCo': 'Soft Creative CO.,LTD',
+    'openLoan': 'បើកការកម្ចី',
+    'districtKhan': 'ស្រុក/ខណ្ឌ',
+    'commune': 'សង្កាត់',
+    'village': 'ស្រុក',
+    'coBorrower': 'អតិថិជនចូលរួម',
+    'guarantor': 'អ្នកធានាអតិថិជន',
+    'addGuarantors': 'បញ្ចូលអ្នកធានាអតិថិជន',
+    'relationship': 'ទំនាក់ទំនង',
+    'firstName': 'នាម',
+    'lastName': 'នាមនៃ',
+    'gender': 'ភេទ',
+    'dob': 'កាលបរិច្ឆេទកំណេីត',
+    'gis': 'លេខអាស្រ័យ',
+    'typeOfId': 'ប្រភេទនៃឯកសារ',
+    'idNumber': 'លេខបញ្ជាក់ឯកសារ',
+    'idCardPhoto': 'រូបភាពឯកសារ',
+    'searchForCO': 'ស្វែងរកបុគ្គលិក',
+    'tapToTakePhotoIdCard': 'ចុចដើមដើមទាញរូបភាពឯកសារ',
+    'noSelectedCoborrowers': 'មិនបានជ្រើសរើសអតិថិជនចូលរួម',
+    'noSelectedGuarantors': 'មិនបានជ្រើសរើសអ្នកធានាអតិថិជន',
+    'numbersId': 'លេខបញ្ជាក់ឯកសារ',
+    'noPendingRepayment': 'មិនមានការផ្ទេរប្រាក់ដាក់ស្នើរ',
+    'selectBM': 'ជ្រើសរើសបានគ្រប់គ្រង',
+    'transferCashToBM': 'ផ្ទេរប្រាក់ដាក់ស្នើរទៅបានគ្រប់គ្រង',
+    'branchManager': 'ម៉ាស៊ីនស្កេនបានគ្រប់គ្រង',
+    'note': 'កំណត់ចំណាំ',
+    'optionalNote': 'កំណត់ចំណាំជាសាធារណៈ',
+    'sendToBM': 'ផ្ញើទៅបានគ្រប់គ្រង',
+    'transferred': 'បានផ្ទេរទៅ',
   };
 }

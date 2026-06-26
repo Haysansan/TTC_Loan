@@ -102,10 +102,6 @@ class DashboardView extends GetView<DashboardController> {
                       () => DashboardSummaryCard2(
                         summary: controller.summaryCardData,
                         userName: controller.displayUserName.value,
-                        entityLabel:
-                            UserRepository.shared.isBM
-                                ? 'Credit Officer'
-                                : 'Clients',
                       ),
                     ),
 

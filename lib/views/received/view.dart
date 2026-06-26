@@ -47,23 +47,20 @@ class _SummarySection extends StatelessWidget {
             gradient: const LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFFFF0000),
-                Color(0xFFFF8386),
-                Color(0xFFFF0000),
-              ],
+              colors: [Color(0xFFFF0000), Color(0xFFFF8386), Color(0xFFFF0000)],
             ),
           ),
           child: GlassStatsCard(
             header:
-                '${c.receivedPercentage.toStringAsFixed(0)}% Received of Transfer',
+                '${c.receivedPercentage.toStringAsFixed(0)}% ${'receivedOfTransfer'.tr}',
             left: GlassStatItem(
-              label: 'Total Transfer',
-              value: '៛${NumberFormat('#,##0').format(c.displayedTotalKhr)}',
-              count: '${c.displayedCOCount} staff',
+              label: 'totalTransfer'.tr,
+              value:
+                  '៛${NumberFormat('#,##0').format(c.totalTransferKhr.value)}',
+              count: '${c.totalCOs.value} ${'staff'.tr}',
             ),
             right: GlassStatItem(
-              label: 'Amount Received',
+              label: 'amountReceived'.tr,
               value: '៛${NumberFormat('#,##0').format(c.receivedKhr.value)}',
               count: '',
             ),
@@ -81,8 +78,8 @@ class _FilterSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final c = Get.find<ReceivedController>();
     final isCEO = UserRepository.shared.isEco;
-    final filterLabel = isCEO ? 'Filter by BM' : 'Filter by CO';
-    final searchLabel = isCEO ? 'Search for BM' : 'Search for CO';
+    final filterLabel = isCEO ? 'filerbyBM'.tr : 'filterByCO'.tr;
+    final searchLabel = isCEO ? 'searchForBM'.tr : 'searchForCO'.tr;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       child: Column(
@@ -96,7 +93,7 @@ class _FilterSection extends StatelessWidget {
                 if (c.selectedOfficer.value == null) return const SizedBox();
                 return GestureDetector(
                   onTap: () => c.filterByOfficer(null),
-                  child: Text('Clear', style: AppTextStyle.normalRedBold),
+                  child: Text('clear'.tr, style: AppTextStyle.normalRedBold),
                 );
               }),
             ],
@@ -126,7 +123,7 @@ class _COList extends StatelessWidget {
     return Obx(() {
       final groups = c.displayedGroups;
       if (groups.isEmpty && !c.isLoadingList.value) {
-        return const Center(child: Text('No pending repayments'));
+        return Center(child: Text('noPendingRepayment'.tr));
       }
       return ListView.separated(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),

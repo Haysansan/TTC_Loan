@@ -139,12 +139,12 @@ class _FilterSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Filter by CO', style: AppTextStyle.normalPrimaryBold),
+              Text('filterByCO'.tr, style: AppTextStyle.normalPrimaryBold),
               Obx(() {
                 if (c.selectedOfficer.value == null) return const SizedBox();
                 return GestureDetector(
                   onTap: () => c.filterByOfficer(null),
-                  child: Text('Clear', style: AppTextStyle.normalRedBold),
+                  child: Text('clear'.tr, style: AppTextStyle.normalRedBold),
                 );
               }),
             ],
@@ -156,7 +156,7 @@ class _FilterSection extends StatelessWidget {
               itemAsString: (item) => item,
               onChanged: c.filterByOfficer,
               selectedItem: c.selectedOfficer.value,
-              label: 'Search for CO',
+              label: 'searchForCO'.tr,
             ),
           ),
         ],
@@ -204,15 +204,15 @@ class _SummarySection extends StatelessWidget {
             ),
             child: GlassStatsCard(
               left: GlassStatItem(
-                label: 'Paid Off Today',
+                label: 'paidOffToday'.tr,
                 value: paidOffTodayCount.toString(),
                 count: '',
               ),
               right: GlassStatItem(
-                label: 'Total Active',
+                label: 'totalActive'.tr,
                 value:
                     '៛${NumberFormat('#,##0').format(c.totalActiveAmount.value)}',
-                count: '${c.totalActiveClients.value} active clients',
+                count: '${c.totalActiveClients.value} ${'activeClients'.tr}',
               ),
             ),
           ),

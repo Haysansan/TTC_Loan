@@ -149,10 +149,7 @@ class EndsChildWidget extends StatelessWidget {
           if (isPending) ...[
             8.height,
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 8,
-                vertical: 6,
-              ),
+              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 6),
               decoration: BoxDecoration(
                 color: statusColor.withValues(alpha: 0.08),
                 borderRadius: BorderRadius.circular(6),
@@ -167,7 +164,7 @@ class EndsChildWidget extends StatelessWidget {
                   6.width,
                   Expanded(
                     child: Text(
-                      'រង់ចាំការអនុម័តពី BM / CEO',
+                      'waitingApprovalFromBmCeo'.tr,
                       style: AppTextStyle.smallGreyRegular.copyWith(
                         color: statusColor,
                         fontWeight: FontWeight.w500,

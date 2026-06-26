@@ -43,7 +43,7 @@ class TransferDataView extends GetView<TransferDataController> {
       },
       child: Scaffold(
         appBar: CustomAppBar(
-          title: LocaleKeys.transfersdata.tr,
+          title: LocaleKeys.datatransfer.tr,
           onBack: () => Navigator.pop(context, false),
         ),
         bottomNavigationBar: AppBottomNav(items: controller.getItems()),
@@ -82,7 +82,7 @@ class TransferDataView extends GetView<TransferDataController> {
                                 count: '',
                               ),
                               right: GlassStatItem(
-                                label: 'Amount',
+                                label: 'amount'.tr,
                                 value:
                                     '៛${NumberFormat('#,##0').format(controller.totalRepaymentKhr.value)}',
                                 count: '',
@@ -118,7 +118,7 @@ class TransferDataView extends GetView<TransferDataController> {
                               ),
                               SizedBox(height: 20),
                               Text(
-                                '${(controller.progress.value * 100).toStringAsFixed(0)}% Synced',
+                                '${(controller.progress.value * 100).toStringAsFixed(0)}% ${'transferred'.tr}',
                               ),
                             ],
                           ),
@@ -154,10 +154,10 @@ class _CashTransferToBmForm extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Transfer Cash to BM', style: AppTextStyle.normalPrimaryBold),
+            Text('transferCashToBM'.tr, style: AppTextStyle.normalPrimaryBold),
             16.height,
             LabeledField(
-              label: 'Branch Manager',
+              label: 'branchManager'.tr,
               required: true,
               child: Obx(
                 () => SearchDropDown<StaffModel>(
@@ -165,13 +165,13 @@ class _CashTransferToBmForm extends StatelessWidget {
                   itemAsString: (item) => item.full_name,
                   onChanged: c.onBmChanged,
                   selectedItem: c.selectedBM.value,
-                  label: 'Select BM',
+                  label: 'selectBM'.tr,
                 ),
               ),
             ),
             16.height,
             LabeledField(
-              label: 'Amount',
+              label: 'amount'.tr,
               required: true,
               child: CustomTextField(
                 controller: c.cashAmountCtl,
@@ -182,16 +182,16 @@ class _CashTransferToBmForm extends StatelessWidget {
             ),
             16.height,
             LabeledField(
-              label: 'Note',
+              label: 'note'.tr,
               child: CustomTextField(
                 controller: c.cashNoteCtl,
-                hintText: 'Optional note',
+                hintText: 'optionalNote'.tr,
               ),
             ),
             16.height,
             Obx(
               () => PrimaryButton(
-                text: 'Send to BM',
+                text: 'sendToBM'.tr,
                 onPressed:
                     c.isSubmittingCashTransfer.value
                         ? null

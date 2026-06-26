@@ -29,10 +29,10 @@ class GuarantorFormSheet extends GetView<GuarantorController> {
                   ),
                   onPressed: Get.back,
                 ),
-                const Expanded(
+                Expanded(
                   child: Center(
                     child: Text(
-                      'Add Guarantors',
+                      'addGuarantors'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -56,8 +56,11 @@ class GuarantorFormSheet extends GetView<GuarantorController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const BorrowerFieldLabel('Full Name', required: true),
-                    _buildTextField(controller.fullNameController, 'Full name'),
+                    BorrowerFieldLabel('fullName'.tr, required: true),
+                    _buildTextField(
+                      controller.fullNameController,
+                      'fullName'.tr,
+                    ),
                     const SizedBox(height: 20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +69,7 @@ class GuarantorFormSheet extends GetView<GuarantorController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const BorrowerFieldLabel('Date of birth'),
+                              BorrowerFieldLabel('dob'.tr),
                               BorrowerDatePickerField(
                                 obs: controller.selectedDate,
                               ),
@@ -78,7 +81,7 @@ class GuarantorFormSheet extends GetView<GuarantorController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const BorrowerFieldLabel('Gender'),
+                              BorrowerFieldLabel('gender'.tr),
                               BorrowerGenderDropdown(
                                 selected: controller.selectedGender,
                                 options: controller.genderOptions,
@@ -89,27 +92,27 @@ class GuarantorFormSheet extends GetView<GuarantorController> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    const BorrowerFieldLabel('Phone number', required: true),
+                    BorrowerFieldLabel('phoneNumber'.tr, required: true),
                     _buildTextField(
                       controller.phoneController,
-                      'Phone number',
+                      'phoneNumber'.tr,
                       keyboard: TextInputType.phone,
                     ),
                     const SizedBox(height: 20),
-                    const BorrowerFieldLabel('Type of ID', required: true),
+                    BorrowerFieldLabel('typeOfId'.tr, required: true),
                     BorrowerIdTypeDropdown<GuarantorIdTypeModel>(
                       selected: controller.selectedIdType,
                       items: controller.idTypes,
                     ),
                     const SizedBox(height: 20),
-                    const BorrowerFieldLabel('ID Number', required: true),
+                    BorrowerFieldLabel('idNumber'.tr, required: true),
                     _buildTextField(
                       controller.nationalIdController,
-                      'Numbers..',
+                      'numbersId'.tr,
                       keyboard: TextInputType.number,
                     ),
                     const SizedBox(height: 20),
-                    const BorrowerFieldLabel('Relationship', required: true),
+                    BorrowerFieldLabel('relationship'.tr, required: true),
                     BorrowerIdTypeDropdown<GuarantorRelationshipModel>(
                       selected: controller.selectedRelationship,
                       items: controller.relationships,
@@ -137,7 +140,7 @@ class GuarantorFormSheet extends GetView<GuarantorController> {
       keyboardType: keyboard,
       validator:
           (v) =>
-              (v == null || v.trim().isEmpty) ? 'This field is required' : null,
+              (v == null || v.trim().isEmpty) ? 'thisFieldIsRequired'.tr : null,
       decoration: borrowerInputDecoration(hint),
     );
   }

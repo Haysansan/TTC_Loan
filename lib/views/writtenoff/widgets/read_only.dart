@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:apploan/core/core.dart';
 import 'package:apploan/models/models.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class WrittenOffReadOnlySheet extends StatelessWidget {
@@ -33,16 +34,15 @@ class WrittenOffReadOnlySheet extends StatelessWidget {
 
           // Total Repayment (bold header row)
           _buildRow(
-            label: 'Total To Close',
+            label: 'totalToClose'.tr,
             value: woLoan.total_repayment.toString(),
             isBold: true,
           ),
           const Divider(),
 
-          _buildRow(label: 'Principal', value: woLoan.principal),
-          _buildRow(label: 'Interest', value: woLoan.interest),
-          _buildRow(label: 'Fee', value: woLoan.monthly_fee),
-
+          _buildRow(label: 'principal'.tr, value: woLoan.principal),
+          _buildRow(label: 'interest'.tr, value: woLoan.interest),
+          _buildRow(label: 'fee'.tr, value: woLoan.monthly_fee),
           // _buildRow(label: 'Penalty', value: woLoan.penalty),
           const SizedBox(height: 20),
 

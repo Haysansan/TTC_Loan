@@ -42,7 +42,7 @@ class SyncDataView extends GetView<SyncDataController> {
       },
       child: Scaffold(
         appBar: CustomAppBar(
-          title: LocaleKeys.syncdata.tr,
+          title: LocaleKeys.datasync.tr,
           onBack: () => Navigator.pop(context, false),
         ),
         body: SingleChildScrollView(
@@ -92,13 +92,13 @@ class SyncDataView extends GetView<SyncDataController> {
                 if (controller.isLoadings.value ||
                     controller.customerCount > 0) {
                   return PrimaryButton(
-                    text: LocaleKeys.syncdata.tr,
+                    text: LocaleKeys.datasync.tr,
                     width: 100,
                     onPressed: null,
                   );
                 } else {
                   return PrimaryButton(
-                    text: LocaleKeys.syncdata.tr,
+                    text: LocaleKeys.datasync.tr,
                     width: 100,
                     onPressed: controller.isLoading.value ? null : onSearch,
                   );

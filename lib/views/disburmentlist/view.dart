@@ -112,12 +112,12 @@ class _SummarySection extends StatelessWidget {
               left: GlassStatItem(
                 label: LocaleKeys.totalDisbursement.tr,
                 value: '៛${NumberFormat('#,##0').format(totalAmount)}',
-                count: '$totalClients clients',
+                count: '$totalClients ' + 'clients'.tr,
               ),
               right: GlassStatItem(
-                label: 'Pending Approval',
+                label: LocaleKeys.pendingApproval.tr,
                 value: pendingApprovalCount.toString(),
-                count: 'waiting',
+                count: LocaleKeys.waiting.tr,
               ),
             ),
           ),
@@ -163,12 +163,12 @@ class _FilterSection extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text('Filter by CO', style: AppTextStyle.normalPrimaryBold),
+              Text('filterByCO'.tr, style: AppTextStyle.normalPrimaryBold),
               Obx(() {
                 if (c.selectedOfficer.value == null) return const SizedBox();
                 return GestureDetector(
                   onTap: () => c.filterByOfficer(null),
-                  child: Text('Clear', style: AppTextStyle.normalRedBold),
+                  child: Text('clear'.tr, style: AppTextStyle.normalRedBold),
                 );
               }),
             ],
@@ -180,7 +180,7 @@ class _FilterSection extends StatelessWidget {
               itemAsString: (item) => item,
               onChanged: c.filterByOfficer,
               selectedItem: c.selectedOfficer.value,
-              label: 'Search for CO',
+              label: 'searchForCO'.tr,
             ),
           ),
         ],

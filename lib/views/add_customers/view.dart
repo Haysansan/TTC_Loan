@@ -88,11 +88,11 @@ class AddCustomersView extends GetView<AddCustomersController> {
                     children: [
                       Expanded(
                         child: LabeledField(
-                          label: 'First name',
+                          label: 'firstName'.tr,
                           required: true,
                           child: CustomTextField(
                             controller: controller.firstName,
-                            hintText: 'First name',
+                            hintText: 'firstName'.tr,
                             textInputAction: TextInputAction.next,
                             validator: (text) => FormValidator.empty(text),
                           ),
@@ -101,11 +101,11 @@ class AddCustomersView extends GetView<AddCustomersController> {
                       const SizedBox(width: 10),
                       Expanded(
                         child: LabeledField(
-                          label: 'Last name',
+                          label: 'lastName'.tr,
                           required: true,
                           child: CustomTextField(
                             controller: controller.lastName,
-                            hintText: 'Last name',
+                            hintText: 'lastName'.tr,
                             textInputAction: TextInputAction.next,
                             validator: (text) => FormValidator.empty(text),
                           ),
@@ -119,7 +119,7 @@ class AddCustomersView extends GetView<AddCustomersController> {
                     children: [
                       Expanded(
                         child: LabeledField(
-                          label: 'Gender',
+                          label: 'gender'.tr,
                           required: true,
                           child: DropdownSearch<String>(
                             items: controller.genderItems,
@@ -169,7 +169,7 @@ class AddCustomersView extends GetView<AddCustomersController> {
                       const SizedBox(width: 10),
                       Expanded(
                         child: LabeledField(
-                          label: 'Date Of Birth',
+                          label: 'dob'.tr,
                           required: true,
                           child: InkWell(
                             onTap: () => controller.getDatePicker().show(),
@@ -190,11 +190,11 @@ class AddCustomersView extends GetView<AddCustomersController> {
                     children: [
                       Expanded(
                         child: LabeledField(
-                          label: 'Phone number',
+                          label: 'phoneNumber'.tr,
                           required: true,
                           child: CustomTextField(
                             controller: controller.phoneNumber,
-                            hintText: 'Phone number',
+                            hintText: 'phoneNumber'.tr,
                             textInputAction: TextInputAction.next,
                             validator: (text) => FormValidator.empty(text),
                           ),
@@ -203,7 +203,7 @@ class AddCustomersView extends GetView<AddCustomersController> {
                       const SizedBox(width: 10),
                       Expanded(
                         child: LabeledField(
-                          label: 'GIS',
+                          label: 'gis'.tr,
                           child: Obx(
                             () => CustomTextField(
                               controller: controller.gisCode,
@@ -241,7 +241,7 @@ class AddCustomersView extends GetView<AddCustomersController> {
                   // Type of ID
                   Obx(
                     () => LabeledField(
-                      label: 'Type of ID',
+                      label: 'typeOfId'.tr,
                       required: true,
                       child: DropdownSearch<CoBorrowerIdTypeModel>(
                         items: controller.idTypes,
@@ -264,11 +264,11 @@ class AddCustomersView extends GetView<AddCustomersController> {
                   10.height,
                   // National ID
                   LabeledField(
-                    label: 'ID Number',
+                    label: 'idNumber'.tr,
                     required: true,
                     child: CustomTextField(
                       controller: controller.externalIdController,
-                      hintText: 'Numbers..',
+                      hintText: 'numbersId'.tr,
                       textInputAction: TextInputAction.next,
                       validator: (text) => FormValidator.empty(text),
                     ),
@@ -276,7 +276,7 @@ class AddCustomersView extends GetView<AddCustomersController> {
                   // 16.height,
                   // ID Card photo (optional)
                   LabeledField(
-                    label: 'ID Card Photo',
+                    label: 'idCardPhoto'.tr,
                     child: Obx(
                       () => _IdCardPicker(
                         image: controller.idCardImage.value,
@@ -298,7 +298,7 @@ class AddCustomersView extends GetView<AddCustomersController> {
                             );
                           }
                           return LabeledField(
-                            label: 'Province / City',
+                            label: 'provinceCity'.tr,
                             required: true,
                             child: SearchDropDown<ProvinceModel>(
                               items: controller.ProvinceList,
@@ -324,7 +324,7 @@ class AddCustomersView extends GetView<AddCustomersController> {
                             );
                           }
                           return LabeledField(
-                            label: 'District / Khan',
+                            label: 'districtKhan'.tr,
                             required: true,
                             child: SearchDropDown<DistrictModel>(
                               items: controller.districtList,
@@ -355,7 +355,7 @@ class AddCustomersView extends GetView<AddCustomersController> {
                             );
                           }
                           return LabeledField(
-                            label: 'Commune',
+                            label: 'commune'.tr,
                             required: true,
                             child: SearchDropDown<CommuneModel>(
                               items: controller.CommuneList,
@@ -381,7 +381,7 @@ class AddCustomersView extends GetView<AddCustomersController> {
                             );
                           }
                           return LabeledField(
-                            label: 'Village',
+                            label: 'village'.tr,
                             required: true,
                             child: SearchDropDown<VillageModel>(
                               items: controller.VillageList,
@@ -399,10 +399,10 @@ class AddCustomersView extends GetView<AddCustomersController> {
                   10.height,
                   // Co-Borrowers
                   _PeopleSection(
-                    label: 'Co-Borrowers',
+                    label: 'coBorrower'.tr,
                     // required: true,
-                    addLabel: '+ Add Co-Borrowers',
-                    emptyText: 'No Co-Borrowers Selected',
+                    addLabel: '+ ${'addCoBorrowers'.tr}',
+                    emptyText: 'noSelectedCoborrowers'.tr,
                     added: coBorrowerCtrl.added,
                     getName: (e) => (e as CoBorrowerModel).fullname,
                     onRemove: coBorrowerCtrl.remove,
@@ -416,13 +416,13 @@ class AddCustomersView extends GetView<AddCustomersController> {
                           backgroundColor: Colors.transparent,
                         ),
                   ),
-                 10.height,
+                  10.height,
                   // Guarantors
                   _PeopleSection(
-                    label: 'Guarantors',
+                    label: 'guarantors'.tr,
                     // required: true,
-                    addLabel: '+ Add Guarantors',
-                    emptyText: 'No Guarantors Selected',
+                    addLabel: '+ ${'addGuarantors'.tr}',
+                    emptyText: 'noSelectedGuarantors'.tr,
                     added: guarantorCtrl.added,
                     getName: (e) => (e as GuarantorModel).fullname,
                     onRemove: guarantorCtrl.remove,
@@ -605,7 +605,7 @@ class _IdCardPicker extends StatelessWidget {
                     ),
                     8.height,
                     Text(
-                      'Tap to take a photo of the ID card',
+                      'tapToTakePhotoIdCard'.tr,
                       style: AppTextStyle.smallGreyRegular,
                     ),
                   ],

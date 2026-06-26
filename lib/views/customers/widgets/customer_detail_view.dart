@@ -24,35 +24,35 @@ class CustomerDetailView extends StatelessWidget {
           _IdCardSection(client: client),
           16.height,
           _InfoSection(
-            title: 'Personal Information',
+            title: 'personalInformation'.tr,
             rows: [
-              _DetailRow(label: 'Client Code', value: client.client_code),
-              _DetailRow(label: 'First Name', value: client.first_name),
-              _DetailRow(label: 'Last Name', value: client.last_name),
-              _DetailRow(label: 'Gender', value: client.gender),
+              _DetailRow(label: 'clientCode'.tr, value: client.client_code),
+              _DetailRow(label: 'firstName'.tr, value: client.first_name),
+              _DetailRow(label: 'lastName'.tr, value: client.last_name),
+              _DetailRow(label: 'gender'.tr, value: client.gender),
               _DetailRow(
-                label: 'Mobile',
+                label: 'mobile'.tr,
                 value: client.mobile,
                 onTap:
                     client.mobile.isNotEmpty && client.mobile != 'N/A'
                         ? () => UrlLauncherManager.call(client.mobile)
                         : null,
               ),
-              _DetailRow(label: 'Email', value: client.email),
-              _DetailRow(label: 'Address', value: client.address),
+              _DetailRow(label: 'email'.tr, value: client.email),
+              _DetailRow(label: 'address'.tr, value: client.address),
             ],
           ),
           12.height,
           _InfoSection(
-            title: 'Loan & Branch Information',
+            title: 'loanBranchInfo'.tr,
             rows: [
-              _DetailRow(label: 'Branch', value: client.branch),
-              _DetailRow(label: 'Staff', value: client.staff),
+              _DetailRow(label: 'branch'.tr, value: client.branch),
+              _DetailRow(label: 'staff'.tr, value: client.staff),
               _DetailRow(
-                label: 'Loan Officer ID',
+                label: 'loanOfficerId'.tr,
                 value: client.loan_officer_id,
               ),
-              _DetailRow(label: 'External ID', value: client.external_id),
+              _DetailRow(label: 'externalId'.tr, value: client.external_id),
             ],
           ),
         ],
@@ -110,10 +110,7 @@ class _Header extends StatelessWidget {
               children: [
                 Text(client.displayName, style: AppTextStyle.mediumPrimaryBold),
                 4.height,
-                Text(
-                  client.client_code,
-                  style: AppTextStyle.normalGreyRegular,
-                ),
+                Text(client.client_code, style: AppTextStyle.normalGreyRegular),
               ],
             ),
           ),
@@ -146,7 +143,7 @@ class _IdCardSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('ID Card Photo', style: AppTextStyle.normalPrimaryBold),
+          Text('idCardPhoto'.tr, style: AppTextStyle.normalPrimaryBold),
           12.height,
           ClipRRect(
             borderRadius: BorderRadius.circular(12),

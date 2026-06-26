@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:apploan/core/core.dart';
+import 'package:get/get.dart';
 
 class ClientCollectionSummary {
   const ClientCollectionSummary({
@@ -35,50 +36,53 @@ class DashboardSummaryCard2 extends StatelessWidget {
     Key? key,
     required this.summary,
     required this.userName,
-    this.companyName = 'Soft Creative CO.,LTD',
+    // this.companyName = 'Soft Creative CO.,LTD',
     this.currencySymbol = '៛',
-    this.entityLabel = 'Clients',
+    // this.entityLabel = 'Clients',
   }) : super(key: key);
 
   final ClientCollectionSummary summary;
   final String userName;
-  final String companyName;
+  // final String companyName;
   final String currencySymbol;
-  final String entityLabel;
+  // final String entityLabel;
 
   @override
   Widget build(BuildContext context) {
+    final company = 'softCreativeCo'.tr;
+    final entity =
+        UserRepository.shared.isBM ? 'creditofficers'.tr : 'clients'.tr;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _CardHeader(companyName: companyName, userName: userName),
+          _CardHeader(companyName: company, userName: userName),
           12.height,
           GlassStatsCard(
             left: GlassStatItem(
-              label: 'Overdue',
+              label: 'overdue'.tr,
               value: '$currencySymbol${_noDecimals(summary.overdueAmount)}',
-              count: '${summary.overdueClients} $entityLabel',
+              count: '${summary.overdueClients} $entity',
             ),
             right: GlassStatItem(
-              label: 'Outstanding',
-              value:
-                  '$currencySymbol${_noDecimals(summary.totalOutstanding)}',
-              count: '${summary.activeClients} active',
+              label: 'outstanding'.tr,
+              value: '$currencySymbol${_noDecimals(summary.totalOutstanding)}',
+              count: '${summary.activeClients}${'active'.tr}',
             ),
           ),
           8.height,
           GlassStatsCard(
             left: GlassStatItem(
-              label: 'Collected',
+              label: 'collected'.tr,
               value: '$currencySymbol${_noDecimals(summary.repayDue)}',
-              count: '${summary.paidClients} paid',
+              count: '${summary.paidClients} ${'paid'.tr}',
             ),
             right: GlassStatItem(
-              label: 'Plan',
+              label: 'plan'.tr,
               value: '$currencySymbol${_noDecimals(summary.expectedAmount)}',
-              count: '${summary.expectedClients} expected',
+              count: '${summary.expectedClients} ${'expected'.tr}',
             ),
           ),
         ],
@@ -134,7 +138,7 @@ class _CardHeader extends StatelessWidget {
               ),
               4.height,
               Text(
-                'Hi, $userName! Welcome to SC Loan.',
+                '${'hi'.tr}, $userName! ${'welcomeToScLoan'.tr}',
                 style: TextStyle(
                   color: Colors.white.withValues(alpha: 0.9),
                   fontSize: 13,
@@ -179,7 +183,10 @@ class GlassStatsCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white.withValues(alpha: 0.18),
             borderRadius: BorderRadius.circular(18),
-            border: Border.all(color: Colors.white.withValues(alpha: 0.35), width: 1),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.35),
+              width: 1,
+            ),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -231,7 +238,10 @@ class _StatColumn extends StatelessWidget {
         children: [
           Text(
             item.label,
-            style: TextStyle(color: Colors.white.withValues(alpha: 0.85), fontSize: 12),
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.85),
+              fontSize: 12,
+            ),
           ),
           4.height,
           FittedBox(
@@ -251,7 +261,10 @@ class _StatColumn extends StatelessWidget {
             item.count,
             maxLines: 1,
             overflow: TextOverflow.ellipsis,
-            style: TextStyle(color: Colors.white.withValues(alpha: 0.75), fontSize: 11),
+            style: TextStyle(
+              color: Colors.white.withValues(alpha: 0.75),
+              fontSize: 11,
+            ),
           ),
         ],
       ),

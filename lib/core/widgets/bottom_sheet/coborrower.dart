@@ -29,10 +29,10 @@ class CoBorrowerFormSheet extends GetView<CoBorrowerController> {
                   ),
                   onPressed: Get.back,
                 ),
-                const Expanded(
+                Expanded(
                   child: Center(
                     child: Text(
-                      'Add Co-Borrowers',
+                      'addCoBorrowers'.tr,
                       style: TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 18,
@@ -56,8 +56,11 @@ class CoBorrowerFormSheet extends GetView<CoBorrowerController> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const BorrowerFieldLabel('Full Name', required: true),
-                    _buildTextField(controller.fullNameController, 'Full name'),
+                    BorrowerFieldLabel('fullName'.tr, required: true),
+                    _buildTextField(
+                      controller.fullNameController,
+                      'fullName'.tr,
+                    ),
                     const SizedBox(height: 20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,7 +69,7 @@ class CoBorrowerFormSheet extends GetView<CoBorrowerController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const BorrowerFieldLabel('Date of birth'),
+                              BorrowerFieldLabel('dob'.tr),
                               BorrowerDatePickerField(
                                 obs: controller.selectedDate,
                               ),
@@ -78,7 +81,7 @@ class CoBorrowerFormSheet extends GetView<CoBorrowerController> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const BorrowerFieldLabel('Gender'),
+                              BorrowerFieldLabel('gender'.tr),
                               BorrowerGenderDropdown(
                                 selected: controller.selectedGender,
                                 options: controller.genderOptions,
@@ -89,23 +92,23 @@ class CoBorrowerFormSheet extends GetView<CoBorrowerController> {
                       ],
                     ),
                     const SizedBox(height: 20),
-                    const BorrowerFieldLabel('Phone number', required: true),
+                    BorrowerFieldLabel('phoneNumber'.tr, required: true),
                     _buildTextField(
                       controller.phoneController,
-                      'Phone number',
+                      'phoneNumber'.tr,
                       keyboard: TextInputType.phone,
                     ),
                     const SizedBox(height: 20),
-                    const BorrowerFieldLabel('Type of ID', required: true),
+                    BorrowerFieldLabel('typeOfId'.tr, required: true),
                     BorrowerIdTypeDropdown<CoBorrowerIdTypeModel>(
                       selected: controller.selectedIdType,
                       items: controller.idTypes,
                     ),
                     const SizedBox(height: 20),
-                    const BorrowerFieldLabel('ID Number', required: true),
+                    BorrowerFieldLabel('idNumber'.tr, required: true),
                     _buildTextField(
                       controller.nationalIdController,
-                      'Numbers..',
+                      'numbersId'.tr,
                       keyboard: TextInputType.number,
                     ),
                     const SizedBox(height: 32),
@@ -131,7 +134,7 @@ class CoBorrowerFormSheet extends GetView<CoBorrowerController> {
       keyboardType: keyboard,
       validator:
           (v) =>
-              (v == null || v.trim().isEmpty) ? 'This field is required' : null,
+              (v == null || v.trim().isEmpty) ? 'thisFieldIsRequired'.tr : null,
       decoration: borrowerInputDecoration(hint),
     );
   }

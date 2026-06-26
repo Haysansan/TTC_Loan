@@ -52,74 +52,74 @@ class CustomersItemWidget extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(12),
           child: Stack(
-        children: [
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Container(
-                  width: 64,
-                  height: 64,
-                  color: _avatarColor,
-                  child:
-                      client.photo.isNotEmpty
-                          ? CustomNetworkImage(
-                            imageUrl: client.photo,
-                            width: 64,
-                            height: 64,
-                          )
-                          : Center(
-                            child: Text(
-                              _initials,
-                              style: AppTextStyle.mediumPrimaryBold,
-                            ),
-                          ),
-                ),
-              ),
-              12.width,
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text.rich(
-                        TextSpan(
-                          text: client.displayName,
-                          style: AppTextStyle.mediumPrimaryBold,
-                          children: [
-                            TextSpan(
-                              text: ' (${client.client_code})',
-                              style: AppTextStyle.smallGreyRegular,
-                            ),
-                          ],
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      4.height,
-                      Text(
-                        client.mobile,
-                        style: AppTextStyle.midPrimaryBold.copyWith(
-                          color: AppColor.primary,
-                        ),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      2.height,
-                      Text(
-                        client.address,
-                        style: AppTextStyle.smallGreyRegular,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ],
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      width: 64,
+                      height: 64,
+                      color: _avatarColor,
+                      child:
+                          client.photo.isNotEmpty
+                              ? CustomNetworkImage(
+                                imageUrl: client.photo,
+                                width: 64,
+                                height: 64,
+                              )
+                              : Center(
+                                child: Text(
+                                  _initials,
+                                  style: AppTextStyle.mediumPrimaryBold,
+                                ),
+                              ),
+                    ),
                   ),
-                ),
+                  12.width,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text.rich(
+                            TextSpan(
+                              text: client.displayName,
+                              style: AppTextStyle.mediumPrimaryBold,
+                              children: [
+                                TextSpan(
+                                  text: ' (${client.client_code})',
+                                  style: AppTextStyle.smallGreyRegular,
+                                ),
+                              ],
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          4.height,
+                          Text(
+                            client.mobile,
+                            style: AppTextStyle.midPrimaryBold.copyWith(
+                              color: AppColor.primary,
+                            ),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          2.height,
+                          Text(
+                            client.address,
+                            style: AppTextStyle.smallGreyRegular,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
               Positioned(top: 0, right: 0, child: _trailing()),
             ],
           ),
@@ -133,7 +133,7 @@ class CustomersItemWidget extends StatelessWidget {
       return GestureDetector(
         onTap: () => Get.toNamed(Routes.loandisbursments),
         child: Text(
-          'Open Loan',
+          'openLoan'.tr,
           style: AppTextStyle.smallPrimaryBold.copyWith(color: AppColor.red),
         ),
       );
